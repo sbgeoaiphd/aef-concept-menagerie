@@ -10,15 +10,50 @@ layout: default
 {% endif %}
 </h1>
 
+{% if page.image %}
+<img
+  src="{{ '/assets/' | append: page.image | relative_url }}"
+  style="max-width:600px; border-radius:10px; border:1px solid rgba(0,0,0,0.12);">
+{% endif %}
 
-<img src="{{ '/assets/' | append: page.image | relative_url }}" style="max-width:600px;">
-
+{% if page.description %}
 <p>{{ page.description }}</p>
+{% endif %}
 
-<h3>Vector (dummy)</h3>
-<pre>{{ page.vector }}</pre>
+{% if page.vector %}
+<h3>Linear direction (AlphaEarth)</h3>
+<pre style="white-space:pre-wrap; word-break:break-word;">
+{{ page.vector }}
+</pre>
 
+{% if page.intercept %}
+<p style="opacity:0.75;">
+  <strong>Intercept:</strong> {{ page.intercept }}
+</p>
+{% endif %}
+{% endif %}
+
+{% if page.notes %}
 <h3>Notes</h3>
 <p>{{ page.notes }}</p>
+{% endif %}
 
-<a href="{{ '/' | relative_url }}">Back to menagerie</a>
+{% if page.reference_url %}
+<h3>Reference</h3>
+<p>
+  <a href="{{ page.reference_url }}" target="_blank" rel="noopener">
+    {{ page.reference_label | default: page.reference_url }}
+  </a>
+</p>
+{% endif %}
+
+{% if content and content != "" %}
+<hr style="margin:40px 0; opacity:0.35;">
+<div>
+  {{ content }}
+</div>
+{% endif %}
+
+<p style="margin-top:40px;">
+  <a href="{{ '/' | relative_url }}">← Back to menagerie</a>
+</p>
