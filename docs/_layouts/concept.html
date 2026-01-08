@@ -1,0 +1,19 @@
+---
+layout: default
+---
+
+<h1>
+{% if page.name %}{{ page.name }}{% else %}Unlabeled Specimen{% endif %}
+</h1>
+
+<img src="{{ '/assets/' | append: page.image | relative_url }}" style="max-width:600px;">
+
+<p>{{ page.description }}</p>
+
+<h3>Vector (dummy)</h3>
+<pre>{{ page.vector }}</pre>
+
+<h3>Notes</h3>
+<p>{{ page.notes }}</p>
+
+<a href="{{ '/' | relative_url }}">Back to menagerie</a>

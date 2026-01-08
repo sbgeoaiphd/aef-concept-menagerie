@@ -1,0 +1,7 @@
+title: AlphaEarth Concept Menagerie
+description: A curated exhibit of linear concepts discovered in AlphaEarth embeddings.
+theme: minima
+collections:
+  concepts:
+    output: true
+    permalink: /concepts/:name/
