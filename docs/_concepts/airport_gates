@@ -1,0 +1,12 @@
+---
+layout: concept
+title: Airport Gates/Piers
+image: airport_gates.png
+short_note: Airport gates and piers but not tarmac or runways.
+description: Learned with a linear probe (LSVM) with ca. 230 hand picked examples based on London airports. Tested on Paris airports.
+vector: [0.5805, 0.5779, 0.3998, 0.738, -1.61, -0.5879, 0.2112, 0.4547, -1.8342, 0.3002, 0.3379, -1.1616, 1.476, -0.3539, -0.2435, -0.9446, 0.9679, 1.4944, 0.7545, 0.4071, 1.6132, -0.1018, 0.7831, -0.981, -0.2842, -0.2888, 0.667, -0.9245, 0.1453, 1.0904, 1.4591, 0.9939, -0.3935, -1.8007, -0.415, 0.5673, -1.1373, -0.1724, -0.6196, -0.4756, -0.192, -1.4259, -0.7221, -0.7985, 0.4146, -0.6756, -0.2298, 1.146, 0.1086, 0.926, -1.1208, 0.909, 0.392, -0.0505, -1.4032, -0.3939, -0.1946, 0.2486, 0.1427, -0.9468, -0.8337, -0.7103, -0.7885, 1.0866]
+intercept: -1.771
+notes: Attempted to make it all terminals, but struggled to get terminals without lots of false positives on large buildings elsewhere.
+---
+
+<!-- This file intentionally left mostly blank -->
