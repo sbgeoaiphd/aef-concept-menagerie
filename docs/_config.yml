@@ -1,6 +1,6 @@
 title: AlphaEarth Concept Menagerie
 description: A curated exhibit of linear concepts discovered in AlphaEarth embeddings.
-theme: minima
+theme: cayman
 collections:
   concepts:
     output: true
