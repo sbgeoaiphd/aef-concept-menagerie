@@ -1,6 +1,6 @@
 ---
 layout: concept
-name: Alabama Catfish Aquaculture
+title: Alabama Catfish Aquaculture
 image: catfish.png
 short_note: Catfish aquaculture, inspired by Christopher Ren.
 description: Learned with a linear probe (LSVM) with ca. 250 hand picked examples. Tested only in Alabama.
