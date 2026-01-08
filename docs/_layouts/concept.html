@@ -23,7 +23,7 @@ layout: default
 {% if page.vector %}
 <h3>Linear direction (AlphaEarth)</h3>
 <pre style="white-space:pre-wrap; word-break:break-word;">
-{{ page.vector }}
+{{ page.vector | join: ", " }}
 </pre>
 
 {% if page.intercept %}
