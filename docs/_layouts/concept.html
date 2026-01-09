@@ -2,13 +2,57 @@
 layout: default
 ---
 
+{% assign ee_base = "https://code.earthengine.google.com/54ea5eaf4d04958ef54c4378e7d0e13d?code" %}
+
+{% assign specimen_title = page.title | default: "Unlabeled Specimen" %}
+{% assign title_enc = specimen_title | uri_escape %}
+
+{% assign year = page.year | default: 2024 %}
+{% assign zoom = page.zoom | default: 11 %}
+{% assign lo = page.lo | default: -20 %}
+{% assign hi = page.hi | default: 20 %}
+
+{% assign tag_val = page.legend_tag | default: page.tag | default: "" %}
+{% assign tag_enc = tag_val | uri_escape %}
+
+{% capture w_str %}{{ page.vector | join: "," }}{% endcapture %}
+{% assign w_str = w_str | strip_newlines | strip %}
+
+{%- capture ee_fragment -%}
+title={{ title_enc }};
+year={{ year }};
+{%- if page.lat != nil and page.lon != nil -%}
+lat={{ page.lat }};
+lon={{ page.lon }};
+zoom={{ zoom }};
+{%- endif -%}
+lo={{ lo }};
+hi={{ hi }};
+{%- if tag_val != "" -%}
+tag={{ tag_enc }};
+{%- endif -%}
+w={{ w_str }};
+{%- if page.intercept != nil and page.intercept != "" -%}
+b={{ page.intercept }};
+{%- endif -%}
+{%- endcapture -%}
+
+{% assign ee_fragment = ee_fragment | strip_newlines | strip %}
+{% assign ee_url = ee_base | append: "#" | append: ee_fragment %}
+
 <h1>
-{% if page.title and page.title != "" %}
-  {{ page.title }}
-{% else %}
-  Unlabeled Specimen
-{% endif %}
+  {% if page.title and page.title != "" %}
+    {{ page.title }}
+  {% else %}
+    Unlabeled Specimen
+  {% endif %}
 </h1>
+
+{% if page.short_note %}
+<p style="margin-top:-6px; opacity:0.8;">
+  <em>{{ page.short_note }}</em>
+</p>
+{% endif %}
 
 {% if page.image %}
 <img
@@ -16,19 +60,42 @@ layout: default
   style="max-width:600px; border-radius:10px; border:1px solid rgba(0,0,0,0.12);">
 {% endif %}
 
+<div style="margin:16px 0 22px 0;">
+  <a
+    href="{{ ee_url }}"
+    target="_blank"
+    rel="noopener"
+    style="
+      display:inline-block;
+      padding:10px 14px;
+      border-radius:10px;
+      border:1px solid rgba(0,0,0,0.18);
+      text-decoration:none;
+      font-weight:600;
+    "
+  >
+    Open in Earth Engine ↗
+  </a>
+  <span style="margin-left:10px; opacity:0.75; font-size:0.95em;">
+    (requires an EE account)
+  </span>
+</div>
+
 {% if page.description %}
 <p>{{ page.description }}</p>
 {% endif %}
 
 {% if page.vector %}
 <h3>Linear direction (AlphaEarth)</h3>
-<pre style="white-space:pre-wrap; word-break:break-word;">
-{{ page.vector | join: ", " }}
-</pre>
+<pre style="white-space:pre-wrap; word-break:break-word;">{{ page.vector | join: ", " }}</pre>
 
-{% if page.intercept %}
+{% if page.intercept != nil and page.intercept != "" %}
 <p style="opacity:0.75;">
   <strong>Intercept:</strong> {{ page.intercept }}
+</p>
+{% else %}
+<p style="opacity:0.75;">
+  <strong>Intercept:</strong> (none) — Earth Engine link will show score only.
 </p>
 {% endif %}
 {% endif %}
