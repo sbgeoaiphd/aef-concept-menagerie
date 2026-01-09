@@ -10,8 +10,8 @@ notes: Seems to work moderately well in parts of the US Mid-West
 lat: 46.684
 lon: -96.815
 zoom: 12
-hi: 1
-lo: -1
+hi: -8.7826
+lo: -8.862
 ---
 
 <!-- This file intentionally left mostly blank -->
