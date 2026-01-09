@@ -6,6 +6,11 @@ short_note: The northern edges of woodlands.
 description: Learned with a linear probe (LSVM) on a 61 hand picked points.
 vector: [-1.1249, -0.2908, -0.7034, 0.8756, -0.7451, -0.7453, -0.7431, 0.158, -0.2905, -0.398, -0.5292, 0.2886, 0.6821, -0.1469, -0.5584, -0.5093, 0.0471, -0.3776, -0.8942, 0.5386, -0.0504, -1.3584, 0.0243, 0.2036, 0.1256, 0.028, 0.7762, -0.1233, -0.2758, 0.5402, -0.115, -0.5468, 0.3474, -0.4226, -0.4768, 0.3221, 0.6386, 0.3552, 0.3692, 0.1552, -0.2916, 0.136, 0.1894, 0.1637, -0.0122, 0.289, 0.3259, 1.0053, -0.5507, 0.3054, -0.5008, -0.0123, 0.3337, 0.4535, 0.4401, 0.3221, -0.3201, -0.5136, -0.214, -0.572, -0.0095, -0.6548, 0.4732, 0.1112]
 notes: Trained in small corner of England, works moderately well also in temperate USA, but not in Southern Hemisphere.
+lat: 51.9796
+lon: -1.0447
+zoom: 13
+hi: 1.4375
+lo: 0
 ---
 
 <!-- This file intentionally left mostly blank -->
