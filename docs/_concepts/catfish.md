@@ -10,7 +10,7 @@ lat: 32.6147
 lon: -87.5787
 hi: 2.35
 lo: 0
-zoom:12
+zoom: 12
 ---
 
 <!-- This file intentionally left mostly blank -->
