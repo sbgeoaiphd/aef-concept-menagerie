@@ -9,8 +9,8 @@ intercept: -1.771
 notes: Attempted to make it all terminals, but struggled to get terminals without lots of false positives on large buildings elsewhere.
 lat: 49.005
 lon: 2.562
-zoom: 12
-hi: 1
+zoom: 13
+hi: 0.34
 lo: -1
 ---
 
