@@ -1,7 +1,7 @@
 ---
 layout: concept
 title: Corn (France)
-image: airport_gates.png
+image: corn_fr.png
 short_note: Corn, trained with RPG data in a small corner of Northern France.
 description: Learned with a linear probe (LSVM) with samples from a few hundred fields in Northern France.
 vector: [-0.03,-0.,-0.01,-0.03,0.,-0.02,0.01,-0.01,0.02,0.01,0.01,-0.01,-0.01,0.03,0.02,-0.01,0.,0.01,-0.,-0.01,0.,0.,0.01,0.02,-0.01,-0.,0.08,-0.,-0.,0.,-0.03,-0.,-0.01,-0.,0.02,-0.,-0.01,0.01,-0.,-0.01,0.,0.,0.,-0.02,0.02,-0.01,-0.,-0.02,-0.08,-0.03,0.01,-0.,0.01,0.,0.02,0.05,-0.02,-0.02,0.02,-0.,-0.02,-0.,-0.,-0.01]
