@@ -4,7 +4,7 @@ layout: default
 
 {% assign ee_base = "https://code.earthengine.google.com/54ea5eaf4d04958ef54c4378e7d0e13d?code" %}
 
-{% assign specimen_title = page.title | default: "Unlabeled Specimen" %}
+{% assign specimen_title = page.title | default: page.name | default: "Unlabeled Specimen" %}
 {% assign title_enc = specimen_title | uri_escape %}
 
 {% assign year = page.year | default: 2024 %}
@@ -40,13 +40,7 @@ b={{ page.intercept }};
 {% assign ee_fragment = ee_fragment | strip_newlines | strip %}
 {% assign ee_url = ee_base | append: "#" | append: ee_fragment %}
 
-<h1>
-  {% if page.title and page.title != "" %}
-    {{ page.title }}
-  {% else %}
-    Unlabeled Specimen
-  {% endif %}
-</h1>
+<h1>{{ specimen_title }}</h1>
 
 {% if page.short_note %}
 <p style="margin-top:-6px; opacity:0.8;">

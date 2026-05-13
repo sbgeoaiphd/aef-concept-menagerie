@@ -31,13 +31,13 @@ Scroll. Look. Click if you must.
       {% if c.image_data %}
       <img
         src="{{ c.image_data }}"
-        alt="{% if c.title and c.title != '' %}{{ c.title }}{% else %}Unlabeled specimen{% endif %}"
+        alt="{{ c.title | default: c.name | default: 'Unlabeled specimen' }}"
         style="max-width:420px; width:100%; border-radius:10px; border:1px solid rgba(0,0,0,0.12);"
       >
       {% elsif c.image %}
       <img
         src="{{ '/assets/' | append: c.image | relative_url }}"
-        alt="{% if c.title and c.title != '' %}{{ c.title }}{% else %}Unlabeled specimen{% endif %}"
+        alt="{{ c.title | default: c.name | default: 'Unlabeled specimen' }}"
         style="max-width:420px; width:100%; border-radius:10px; border:1px solid rgba(0,0,0,0.12);"
       >
       {% endif %}
@@ -45,11 +45,12 @@ Scroll. Look. Click if you must.
   </div>
 
   <div style="max-width:560px;">
+    {% assign card_title = c.title | default: c.name %}
     <h2 style="margin-top:0; margin-bottom:10px;">
-      {% if c.unlabeled == true or c.title == nil or c.title == "" %}
+      {% if c.unlabeled == true or card_title == nil or card_title == "" %}
         Unlabeled Specimen{% if c.specimen_id %} #{{ c.specimen_id }}{% endif %}
       {% else %}
-        {{ c.title }}
+        {{ card_title }}
       {% endif %}
     </h2>
 

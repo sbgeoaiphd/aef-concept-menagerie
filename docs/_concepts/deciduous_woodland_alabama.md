@@ -1,7 +1,13 @@
 ---
-name: Deciduous woodland (Alabama)
+layout: concept
+title: Deciduous woodland (Alabama)
 short_note: Deciduous woodland in Alabama
 description: Deciduous woodland, not coastal pine forests or woody swampland. Only tested in Alabama by vibes.
+lat: 33.5
+lon: -86.45
+zoom: 10
+lo: 0
+hi: 1
 vector:
   - 0.2255
   - 0.9855

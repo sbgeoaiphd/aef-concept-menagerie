@@ -5,3 +5,9 @@ collections:
   concepts:
     output: true
     permalink: /concepts/:name/
+defaults:
+  - scope:
+      path: ""
+      type: concepts
+    values:
+      layout: concept
