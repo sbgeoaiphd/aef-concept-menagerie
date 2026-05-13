@@ -54,7 +54,11 @@ b={{ page.intercept }};
 </p>
 {% endif %}
 
-{% if page.image %}
+{% if page.image_data %}
+<img
+  src="{{ page.image_data }}"
+  style="max-width:600px; border-radius:10px; border:1px solid rgba(0,0,0,0.12);">
+{% elsif page.image %}
 <img
   src="{{ '/assets/' | append: page.image | relative_url }}"
   style="max-width:600px; border-radius:10px; border:1px solid rgba(0,0,0,0.12);">

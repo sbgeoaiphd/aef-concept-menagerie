@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>AEF Concept Lab</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link rel="stylesheet" href="styles.css">
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/@google/earthengine@1.7.26/build/ee_api_js.js"></script>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js"></script>
+</head>
+<body>
+
+<header>
+  <div class="header-left">
+    <a href="../" class="back-link">&larr; Menagerie</a>
+    <h1>Concept Lab</h1>
+  </div>
+  <div class="header-right">
+    <span id="auth-status" class="auth-status">Not signed in</span>
+    <button id="signin-btn" class="primary">Sign in to Earth Engine</button>
+  </div>
+</header>
+
+<main>
+  <aside id="sidebar">
+
+    <section class="step">
+      <h2>1. Earth Engine</h2>
+      <p class="hint">Sign in with the Google account that has Earth Engine access. All compute runs on your own EE quota.</p>
+      <details>
+        <summary>Advanced: embedding asset</summary>
+        <label>Asset ID
+          <input id="asset-id" type="text" value="GOOGLE/SATELLITE_EMBEDDING/V1/ANNUAL">
+        </label>
+      </details>
+      <label>Year
+        <select id="year-select">
+          <option>2017</option>
+          <option>2018</option>
+          <option>2019</option>
+          <option>2020</option>
+          <option>2021</option>
+          <option>2022</option>
+          <option>2023</option>
+          <option selected>2024</option>
+        </select>
+      </label>
+    </section>
+
+    <section class="step">
+      <h2>2. Label points</h2>
+      <p class="hint">Click on the map to drop labeled points. At least 2 positives + 2 negatives.</p>
+      <div class="toggle-group">
+        <label><input type="radio" name="label" value="1" checked> <span class="dot pos"></span> Positive</label>
+        <label><input type="radio" name="label" value="0"> <span class="dot neg"></span> Negative</label>
+      </div>
+      <div class="counts">
+        <span>Positives: <strong id="pos-count">0</strong></span>
+        <span>Negatives: <strong id="neg-count">0</strong></span>
+      </div>
+      <div class="row">
+        <button id="undo-btn">Undo</button>
+        <button id="clear-points-btn">Clear all</button>
+      </div>
+      <details>
+        <summary>Import / export points</summary>
+        <button id="download-points-btn">Download GeoJSON</button>
+        <label>Upload GeoJSON
+          <input id="upload-points" type="file" accept=".geojson,.json,application/geo+json,application/json">
+        </label>
+        <p class="hint">Each feature must be a Point with a <code>label</code> property of "positive" or "negative".</p>
+      </details>
+    </section>
+
+    <section class="step">
+      <h2>3. Train</h2>
+      <button id="train-btn" class="primary" disabled>Train linear SVM</button>
+      <div id="train-status" class="status"></div>
+    </section>
+
+    <section class="step" id="contribute-section" style="display:none;">
+      <h2>4. Contribute</h2>
+      <label>Concept title
+        <input id="concept-name" type="text" placeholder="e.g. Catfish Aquaculture">
+      </label>
+      <label>Short note (one line for the gallery)
+        <input id="concept-short-note" type="text" placeholder="e.g. Catfish ponds in Alabama">
+      </label>
+      <label>Description
+        <textarea id="concept-description" rows="3" placeholder="How it was trained, where tested, anything notable"></textarea>
+      </label>
+      <label>Notes (optional, freeform)
+        <textarea id="concept-notes" rows="2"></textarea>
+      </label>
+      <label>Your GitHub handle (optional)
+        <input id="concept-author" type="text" placeholder="e.g. octocat">
+      </label>
+
+      <details>
+        <summary>Screenshot</summary>
+        <p class="hint">Frame the map how you'd like the gallery to show it, then capture.</p>
+        <button id="recapture-btn">Capture from map</button>
+        <div id="snapshot-preview-wrap" style="display:none;">
+          <img id="snapshot-preview" alt="">
+        </div>
+        <label>Or upload your own
+          <input id="snapshot-upload" type="file" accept="image/png,image/jpeg">
+        </label>
+      </details>
+
+      <details>
+        <summary>Include labeled points?</summary>
+        <label class="checkbox">
+          <input id="include-points" type="checkbox" checked>
+          Include the labeled points GeoJSON in the YAML
+        </label>
+        <p class="hint">Makes your concept retrainable by others. Adds ~1 KB per 10 points.</p>
+      </details>
+
+      <button id="open-pr-btn" class="primary" disabled>Copy YAML + open PR</button>
+      <div id="pr-status" class="status"></div>
+    </section>
+
+  </aside>
+
+  <div id="map"></div>
+</main>
+
+<div id="setup-banner" style="display:none;">
+  <strong>Setup needed:</strong>
+  This lab needs a Google OAuth client ID before it can talk to Earth Engine.
+  See <a href="README.md">lab/README.md</a> for the one-time setup.
+</div>
+
+<script src="config.js"></script>
+<script src="app.js"></script>
+
+</body>
+</html>

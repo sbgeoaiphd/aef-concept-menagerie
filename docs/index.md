@@ -12,6 +12,14 @@ Read the announcement: [AlphaEarth Foundations helps map our planet in unprecede
 
 Scroll. Look. Click if you must.
 
+<p style="margin:20px 0;">
+  <a href="{{ '/lab/' | relative_url }}"
+     style="display:inline-block; padding:10px 18px; background:#159957; color:#fff; border-radius:8px; text-decoration:none; font-weight:600;">
+    + Contribute a new concept
+  </a>
+  <span style="margin-left:12px; opacity:0.75;">Train a linear concept in the browser and open a PR.</span>
+</p>
+
 {% assign specimens = site.concepts | sort: "order" %}
 
 {% for c in specimens %}
@@ -20,11 +28,19 @@ Scroll. Look. Click if you must.
 <div style="display:flex; gap:22px; align-items:flex-start; flex-wrap:wrap;">
   <div style="min-width:280px;">
     <a href="{{ c.url | relative_url }}" style="text-decoration:none;">
+      {% if c.image_data %}
+      <img
+        src="{{ c.image_data }}"
+        alt="{% if c.title and c.title != '' %}{{ c.title }}{% else %}Unlabeled specimen{% endif %}"
+        style="max-width:420px; width:100%; border-radius:10px; border:1px solid rgba(0,0,0,0.12);"
+      >
+      {% elsif c.image %}
       <img
         src="{{ '/assets/' | append: c.image | relative_url }}"
         alt="{% if c.title and c.title != '' %}{{ c.title }}{% else %}Unlabeled specimen{% endif %}"
         style="max-width:420px; width:100%; border-radius:10px; border:1px solid rgba(0,0,0,0.12);"
       >
+      {% endif %}
     </a>
   </div>
 
