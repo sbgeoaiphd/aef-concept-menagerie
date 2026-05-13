@@ -52,21 +52,21 @@ Open the corresponding `http://localhost:port/` and sign in. Make sure `localhos
 1. User signs in with Google → GIS issues an access token scoped to Earth Engine.
 2. `ee.data.setAuthToken(...)` + `ee.initialize(...)` brings the EE JS API online against the user's account.
 3. User clicks points on the map, picks a year/asset, hits **Train**.
-4. EE-side: `image.sampleRegions(...)` → `ee.Classifier.libsvm({kernelType: 'LINEAR'}).train(...)`.
-5. Linear weights are recovered with a small trick: classify the zero vector + each one-hot basis vector with `setOutputMode('RAW')`; decode `b = decision[0]`, `w_i = decision[i+1] - b`.
-6. Score + prediction layers are added to the Leaflet map via `image.getMap(...)`.
-7. The visible map area is captured (`dom-to-image`) as a PNG data URI.
-8. Everything (vector, intercept, metadata, optional GeoJSON, embedded image) is rendered to YAML.
-9. UI copies the YAML to the user's clipboard and opens `https://github.com/.../new/main/docs/_concepts/?filename=<slug>.yml` in a new tab — GitHub auto-forks, the editor opens, user pastes (Ctrl-V), clicks "Propose new file" → "Create pull request."
+4. EE-side: `image.sampleRegions(...)` pulls per-point band values; `.getInfo()` brings them client-side.
+5. A linear SVM is trained in JS (sub-gradient descent on hinge loss + L2, sklearn `LinearSVC`-equivalent). EE's own `libsvm` is not used because it does not expose the recovered weight vector. ~50–200 samples × 64 features runs in <100 ms.
+6. The recovered `(w, b)` are used to build a score image server-side via `image.multiply(w).reduce(sum).add(b)`, then the score + thresholded prediction mask are turned into Leaflet tile layers via `image.getMap(...)`.
+7. The visible map area is captured with `dom-to-image`, downscaled to ~900 px, re-encoded as JPEG at quality 0.85 (typically 80–200 KB).
+8. Everything (vector, intercept, metadata, optional GeoJSON, embedded image) is rendered into a Jekyll concept file: YAML front matter + empty Markdown body.
+9. UI copies the file to the user's clipboard and opens `https://github.com/.../new/main/docs/_concepts/?filename=<slug>.md` in a new tab — GitHub auto-forks, editor opens, user pastes (Ctrl-V), clicks **Commit changes…** → picks a branch → **Propose changes** → fills in title/description → **Create pull request**.
 
 No server, no GitHub OAuth, no commit-via-API. The only outbound dependency is Google (for EE auth + tiles).
 
 ## Stack
 
 - [Leaflet](https://leafletjs.com/) for the map, Esri World Imagery as the basemap
-- [Earth Engine JS API](https://developers.google.com/earth-engine/guides/client_libraries) for sampling + training + visualization
+- [Earth Engine JS API](https://developers.google.com/earth-engine/guides/client_libraries) for sampling + visualization (training is JS-side, see flow above)
 - [Google Identity Services](https://developers.google.com/identity/oauth2/web) for sign-in
-- [js-yaml](https://github.com/nodeca/js-yaml) for YAML emit
+- [js-yaml](https://github.com/nodeca/js-yaml) for front-matter emit
 - [dom-to-image](https://github.com/tsayen/dom-to-image) for the map snapshot
 
 All loaded from CDNs. If any CDN goes down, the page breaks — could be pinned/vendored later.

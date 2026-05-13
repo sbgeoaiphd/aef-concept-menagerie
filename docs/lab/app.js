@@ -659,7 +659,7 @@ async function copyAndOpenPR() {
     await navigator.clipboard.writeText(text);
   } catch (e) {
     setStatus("pr-status",
-      "Couldn't auto-copy to clipboard. Use the textarea below to copy manually.", true);
+      "Couldn't auto-copy to clipboard. Use the textarea below to copy the file manually.", true);
     showFallbackTextarea(text);
     return;
   }
@@ -668,7 +668,7 @@ async function copyAndOpenPR() {
   const url = `https://github.com/${owner}/${repo}/new/${branch}/docs/_concepts/?filename=${encodeURIComponent(slug + ".md")}`;
   window.open(url, "_blank", "noopener");
   setStatus("pr-status",
-    `YAML copied to clipboard (${(text.length / 1024).toFixed(0)} KB). The GitHub editor opened in a new tab. There:
+    `Concept file copied to clipboard (${(text.length / 1024).toFixed(0)} KB). The GitHub editor opened in a new tab. There:
     (1) Ctrl+V to paste.
     (2) Click "Commit changes…" (top right).
     (3) Pick a branch name, click "Propose changes".
